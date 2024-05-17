@@ -11,6 +11,7 @@ RoostTestHash=e74b642c2e
 
 // ********RoostGPT********
 package com.example.RoostTest;
+
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.http.ContentType;
@@ -37,84 +38,112 @@ import java.util.Arrays;
 
 public class listenerProductOrderInformationRequiredEventPostTest {
 
-    List<Map<String, String>> envList = new ArrayList<>();
+	List<Map<String, String>> envList = new ArrayList<>();
 
+	@BeforeEach
+	public void setUp() {
+		TestdataLoader dataloader = new TestdataLoader();
+		String[] envVarsList = { "BASE_URL" };
+		envList = dataloader.load(
+				"src/test/java/com/example/RoostTest/listener_productOrderInformationRequiredEventPostTest.csv",
+				envVarsList);
+	}
 
-    @BeforeEach
-    public void setUp() {
-      TestdataLoader dataloader = new TestdataLoader();
-      String[] envVarsList = {"BASE_URL"};
-      envList = dataloader.load("src/test/java/com/example/RoostTest/listener_productOrderInformationRequiredEventPostTest.csv", envVarsList);
-    }
+	@Test
+	public void listenerProductOrderInformationRequiredEventPost_Test() throws JSONException {
+		this.setUp();
+    String requestBody = "{\n" + //
+            "                    \"notification\": {\n" + //
+            "                      \"order\": {\n" + //
+            "                        \"id\": \"20230315000001\",\n" + //
+            "                        \"correlationOrder\": \"10\",\n" + //
+            "                        \"associatedDocument\": \"VTT001\",\n" + //
+            "                        \"issue\": {\n" + //
+            "                          \"code\": \"7029\",\n" + //
+            "                          \"description\": \"Pendencia de agendamento\",\n" + //
+            "                          \"type\": \"CLIENTE\",\n" + //
+            "                          \"observation\": \"\",\n" + //
+            "                          \"updateDate\": \"2021-02-17T17:19:50-03:00\",\n" + //
+            "                          \"action\": \"abrir\",\n" + //
+            "                          \"task\": \"\",\n" + //
+            "                          \"fieldActivity\": \"true\",\n" + //
+            "                          \"reason\": \"PROJETO\"\n" + //
+            "                        }\n" + //
+            "                      }\n" + //
+            "                    }\n" + //
+            "                  }";
+		Integer testNumber = 1;
+		for (Map<String, String> testData : envList) {
+			RestAssured.baseURI = (testData.get("BASE_URL") != null && !testData.get("BASE_URL").isEmpty())
+					? testData.get("BASE_URL") : testData.get("BASE_URL");
 
-  
-    @Test  
-    public void listenerProductOrderInformationRequiredEventPost_Test() throws JSONException {
-        this.setUp();
-        Integer testNumber = 1;
-        for (Map<String, String> testData : envList) {
-          RestAssured.baseURI = (testData.get("BASE_URL") != null && !testData.get("BASE_URL").isEmpty()) ? testData.get("BASE_URL"): testData.get("BASE_URL");  
-  
-                Response responseObj = given()
-				.contentType(ContentType.JSON)
-				.body("{\n"+
-					"  \"notification\": \"" + (testData.get("notification") != null ? testData.get("notification") : "") + "\n" +
- 				"}")
-                .when()
-                .post("/listener/productOrderInformationRequiredEvent")  
-                .then() 
-                .extract().response(); 
-              JsonPath response;
-              String contentType = responseObj.getContentType();
+			Response responseObj = given().contentType(ContentType.JSON)
+				.body(requestBody)
+				.when()
+				.post("/listener/productOrderInformationRequiredEvent")
+				.then()
+				.extract()
+				.response();
+			JsonPath response;
+			String contentType = responseObj.getContentType();
 
-              System.out.printf("Test Case %d: listenerProductOrderInformationRequiredEventPost_Test \n", testNumber++);
-              System.out.println("Request: POST /listener/productOrderInformationRequiredEvent");
-              System.out.println("Status Code: " + responseObj.statusCode());
-              if (testData.get("statusCode") != null) {
-                String statusCodeFromCSV = testData.get("statusCode");
-                if (statusCodeFromCSV.contains("X")) {
-                  MatcherAssert.assertThat(
-                      "Expected a status code of category " + statusCodeFromCSV + ", but got "
-                          + Integer.toString(responseObj.statusCode()) + " instead",
-                      Integer.toString(responseObj.statusCode()).charAt(0), equalTo(statusCodeFromCSV.charAt(0)));
-                } else {
-                  MatcherAssert.assertThat(
-                      Integer.toString(responseObj.statusCode()), equalTo(statusCodeFromCSV));
-                }
-              } 
-              				else {  
-      List<Integer> expectedStatusCodes = Arrays.asList(204,400,401,500,503,504);
+			System.out.printf("Test Case %d: listenerProductOrderInformationRequiredEventPost_Test \n", testNumber++);
+			System.out.println("Request: POST /listener/productOrderInformationRequiredEvent");
+			System.out.println("Status Code: " + responseObj.statusCode());
+			if (testData.get("statusCode") != null) {
+				String statusCodeFromCSV = testData.get("statusCode");
+				if (statusCodeFromCSV.contains("X")) {
+					MatcherAssert.assertThat(
+							"Expected a status code of category " + statusCodeFromCSV + ", but got "
+									+ Integer.toString(responseObj.statusCode()) + " instead",
+							Integer.toString(responseObj.statusCode()).charAt(0), equalTo(statusCodeFromCSV.charAt(0)));
+				}
+				else {
+					MatcherAssert.assertThat(Integer.toString(responseObj.statusCode()), equalTo(statusCodeFromCSV));
+				}
+			}
+			else {
+				List<Integer> expectedStatusCodes = Arrays.asList(204, 400, 401, 500, 503, 504);
 				MatcherAssert.assertThat(responseObj.statusCode(), is(in(expectedStatusCodes)));
-          }
-				String stringifiedStatusCode = Integer.toString(responseObj.statusCode());
-              if (contentType.contains("application/xml") || contentType.contains("text/xml")) {
-                String xmlResponse = responseObj.asString();
-                JSONObject jsonResponse = XML.toJSONObject(xmlResponse);
-                JSONObject jsonData = jsonResponse.getJSONObject("xml");
-                String jsonString = jsonData.toString();
-                response = new JsonPath(jsonString);
-        
-              } else if(contentType.contains("application/json")){  
-                response = responseObj.jsonPath(); 
-              } else {
-                System.out.println("Response content type found: "+contentType+", but RoostGPT currently only supports the following response content types: application/json,text/xml,application/xml");
-                continue;
-              }
-         
-                if(stringifiedStatusCode.equals("204")){					System.out.println("Description: Success");
-				}
-if(stringifiedStatusCode.equals("400")){					System.out.println("Description: BadRequest");
-				}
-if(stringifiedStatusCode.equals("401")){					System.out.println("Description: Unauthorized");
-				}
-if(stringifiedStatusCode.equals("500")){					System.out.println("Description: ServerError");
-				}
-if(stringifiedStatusCode.equals("503")){					System.out.println("Description: Unavailable");
-				}
-if(stringifiedStatusCode.equals("504")){					System.out.println("Description: Timeout");
-				}
+			}
+			String stringifiedStatusCode = Integer.toString(responseObj.statusCode());
+			if (contentType.contains("application/xml") || contentType.contains("text/xml")) {
+				String xmlResponse = responseObj.asString();
+				JSONObject jsonResponse = XML.toJSONObject(xmlResponse);
+				JSONObject jsonData = jsonResponse.getJSONObject("xml");
+				String jsonString = jsonData.toString();
+				response = new JsonPath(jsonString);
 
+			}
+			else if (contentType.contains("application/json")) {
+				response = responseObj.jsonPath();
+			}
+			else {
+				System.out.println("Response content type found: " + contentType
+						+ ", but RoostGPT currently only supports the following response content types: application/json,text/xml,application/xml");
+				continue;
+			}
 
-            }  
-    }
+			if (stringifiedStatusCode.equals("204")) {
+				System.out.println("Description: Success");
+			}
+			if (stringifiedStatusCode.equals("400")) {
+				System.out.println("Description: BadRequest");
+			}
+			if (stringifiedStatusCode.equals("401")) {
+				System.out.println("Description: Unauthorized");
+			}
+			if (stringifiedStatusCode.equals("500")) {
+				System.out.println("Description: ServerError");
+			}
+			if (stringifiedStatusCode.equals("503")) {
+				System.out.println("Description: Unavailable");
+			}
+			if (stringifiedStatusCode.equals("504")) {
+				System.out.println("Description: Timeout");
+			}
+
+		}
+	}
+
 }

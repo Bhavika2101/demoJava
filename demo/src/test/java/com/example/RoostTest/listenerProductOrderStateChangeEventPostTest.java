@@ -11,6 +11,7 @@ RoostTestHash=6f5fd9fdba
 
 // ********RoostGPT********
 package com.example.RoostTest;
+
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.http.ContentType;
@@ -37,84 +38,151 @@ import java.util.Arrays;
 
 public class listenerProductOrderStateChangeEventPostTest {
 
-    List<Map<String, String>> envList = new ArrayList<>();
+	List<Map<String, String>> envList = new ArrayList<>();
 
+	@BeforeEach
+	public void setUp() {
+		TestdataLoader dataloader = new TestdataLoader();
+		String[] envVarsList = { "BASE_URL" };
+		envList = dataloader
+			.load("src/test/java/com/example/RoostTest/listener_productOrderStateChangeEventPostTest.csv", envVarsList);
+	}
 
-    @BeforeEach
-    public void setUp() {
-      TestdataLoader dataloader = new TestdataLoader();
-      String[] envVarsList = {"BASE_URL"};
-      envList = dataloader.load("src/test/java/com/example/RoostTest/listener_productOrderStateChangeEventPostTest.csv", envVarsList);
-    }
+	@Test
+	public void listenerProductOrderStateChangeEventPost_Test() throws JSONException {
+		this.setUp();
+    String requestBody = "{\n" + //
+            "                      \"date\": \"2020-12-16T10:09:31-03:00\",\n" + //
+            "                      \"customer\": {\n" + //
+            "                        \"subscriberId\": \"234567654\"\n" + //
+            "                      },\n" + //
+            "                      \"order\": {\n" + //
+            "                        \"id\": \"20230315000001\",\n" + //
+            "                        \"correlationOrder\": \"10\",\n" + //
+            "                        \"associatedDocument\": \"VTT001\",\n" + //
+            "                        \"type\": \"Encerramento\",\n" + //
+            "                        \"code\": \"0\",\n" + //
+            "                        \"description\": \"Ordem encerrada com sucesso.\",\n" + //
+            "                        \"lostEquipment\": \"True\",\n" + //
+            "                        \"resource\": {\n" + //
+            "                          \"gponAccess\": \"A000009QS\",\n" + //
+            "                          \"fiberPath\": {\n" + //
+            "                            \"items\": {\n" + //
+            "                              \"item\": [\n" + //
+            "                                {\n" + //
+            "                                  \"name\": \"enderecoCDO\",\n" + //
+            "                                  \"value\": \"RUA GENERAL RENATO PAQUET, 199, BARRA DA TIJUCA, RIO DE JANEIRO - RJ 22793913\"\n" + //
+            "                                },\n" + //
+            "                                {\n" + //
+            "                                  \"name\": \"producer_olt\",\n" + //
+            "                                  \"value\": \"HUAWEI\"\n" + //
+            "                                },\n" + //
+            "                                {\n" + //
+            "                                  \"name\": \"CDO\",\n" + //
+            "                                  \"value\": \"CDOI-4704-PTP.FO.O:45\"\n" + //
+            "                                },\n" + //
+            "                                {\n" + //
+            "                                  \"name\": \"CDO\",\n" + //
+            "                                  \"value\": \"CDOI-4704-PTP.FO.I:S32_2_IN 1\"\n" + //
+            "                                },\n" + //
+            "                                {\n" + //
+            "                                  \"name\": \"estacao\",\n" + //
+            "                                  \"value\": \"BEL\"\n" + //
+            "                                },\n" + //
+            "                                {\n" + //
+            "                                  \"name\": \"cnl\",\n" + //
+            "                                  \"value\": \"CBF\"\n" + //
+            "                                },\n" + //
+            "                                {\n" + //
+            "                                  \"name\": \"olt\",\n" + //
+            "                                  \"value\": \"MA-CTO04-GHUA\"\n" + //
+            "                                },\n" + //
+            "                                {\n" + //
+            "                                  \"name\": \"primaryCable\",\n" + //
+            "                                  \"value\": \"MA.CTO.F-7.CEO-15/1\"\n" + //
+            "                                },\n" + //
+            "                                {\n" + //
+            "                                  \"name\": \"secondaryCable\",\n" + //
+            "                                  \"value\": \"MA.CTO.F-7.CEOS-165\"\n" + //
+            "                                }\n" + //
+            "                              ]\n" + //
+            "                            }\n" + //
+            "                          }\n" + //
+            "                        }\n" + //
+            "                      }\n" + //
+            "                    }";
+		Integer testNumber = 1;
+		for (Map<String, String> testData : envList) {
+			RestAssured.baseURI = (testData.get("BASE_URL") != null && !testData.get("BASE_URL").isEmpty())
+					? testData.get("BASE_URL") : testData.get("BASE_URL");
 
-  
-    @Test  
-    public void listenerProductOrderStateChangeEventPost_Test() throws JSONException {
-        this.setUp();
-        Integer testNumber = 1;
-        for (Map<String, String> testData : envList) {
-          RestAssured.baseURI = (testData.get("BASE_URL") != null && !testData.get("BASE_URL").isEmpty()) ? testData.get("BASE_URL"): testData.get("BASE_URL");  
-  
-                Response responseObj = given()
-				.contentType(ContentType.JSON)
-				.body("{\n"+
-					"  \"notification\": \"" + (testData.get("notification") != null ? testData.get("notification") : "") + "\n" +
- 				"}")
-                .when()
-                .post("/listener/productOrderStateChangeEvent")  
-                .then() 
-                .extract().response(); 
-              JsonPath response;
-              String contentType = responseObj.getContentType();
+			Response responseObj = given().contentType(ContentType.JSON)
+				.body(requestBody)
+				.when()
+				.post("/listener/productOrderStateChangeEvent")
+				.then()
+				.extract()
+				.response();
+			JsonPath response;
+			String contentType = responseObj.getContentType();
 
-              System.out.printf("Test Case %d: listenerProductOrderStateChangeEventPost_Test \n", testNumber++);
-              System.out.println("Request: POST /listener/productOrderStateChangeEvent");
-              System.out.println("Status Code: " + responseObj.statusCode());
-              if (testData.get("statusCode") != null) {
-                String statusCodeFromCSV = testData.get("statusCode");
-                if (statusCodeFromCSV.contains("X")) {
-                  MatcherAssert.assertThat(
-                      "Expected a status code of category " + statusCodeFromCSV + ", but got "
-                          + Integer.toString(responseObj.statusCode()) + " instead",
-                      Integer.toString(responseObj.statusCode()).charAt(0), equalTo(statusCodeFromCSV.charAt(0)));
-                } else {
-                  MatcherAssert.assertThat(
-                      Integer.toString(responseObj.statusCode()), equalTo(statusCodeFromCSV));
-                }
-              } 
-              				else {  
-      List<Integer> expectedStatusCodes = Arrays.asList(204,400,401,500,503,504);
+			System.out.printf("Test Case %d: listenerProductOrderStateChangeEventPost_Test \n", testNumber++);
+			System.out.println("Request: POST /listener/productOrderStateChangeEvent");
+			System.out.println("Status Code: " + responseObj.statusCode());
+			if (testData.get("statusCode") != null) {
+				String statusCodeFromCSV = testData.get("statusCode");
+				if (statusCodeFromCSV.contains("X")) {
+					MatcherAssert.assertThat(
+							"Expected a status code of category " + statusCodeFromCSV + ", but got "
+									+ Integer.toString(responseObj.statusCode()) + " instead",
+							Integer.toString(responseObj.statusCode()).charAt(0), equalTo(statusCodeFromCSV.charAt(0)));
+				}
+				else {
+					MatcherAssert.assertThat(Integer.toString(responseObj.statusCode()), equalTo(statusCodeFromCSV));
+				}
+			}
+			else {
+				List<Integer> expectedStatusCodes = Arrays.asList(204, 400, 401, 500, 503, 504);
 				MatcherAssert.assertThat(responseObj.statusCode(), is(in(expectedStatusCodes)));
-          }
-				String stringifiedStatusCode = Integer.toString(responseObj.statusCode());
-              if (contentType.contains("application/xml") || contentType.contains("text/xml")) {
-                String xmlResponse = responseObj.asString();
-                JSONObject jsonResponse = XML.toJSONObject(xmlResponse);
-                JSONObject jsonData = jsonResponse.getJSONObject("xml");
-                String jsonString = jsonData.toString();
-                response = new JsonPath(jsonString);
-        
-              } else if(contentType.contains("application/json")){  
-                response = responseObj.jsonPath(); 
-              } else {
-                System.out.println("Response content type found: "+contentType+", but RoostGPT currently only supports the following response content types: application/json,text/xml,application/xml");
-                continue;
-              }
-         
-                if(stringifiedStatusCode.equals("204")){					System.out.println("Description: Operação realizada com sucesso");
-				}
-if(stringifiedStatusCode.equals("400")){					System.out.println("Description: BadRequest");
-				}
-if(stringifiedStatusCode.equals("401")){					System.out.println("Description: Unauthorized");
-				}
-if(stringifiedStatusCode.equals("500")){					System.out.println("Description: ServerError");
-				}
-if(stringifiedStatusCode.equals("503")){					System.out.println("Description: Unavailable");
-				}
-if(stringifiedStatusCode.equals("504")){					System.out.println("Description: Timeout");
-				}
+			}
+			String stringifiedStatusCode = Integer.toString(responseObj.statusCode());
+			if (contentType.contains("application/xml") || contentType.contains("text/xml")) {
+				String xmlResponse = responseObj.asString();
+				JSONObject jsonResponse = XML.toJSONObject(xmlResponse);
+				JSONObject jsonData = jsonResponse.getJSONObject("xml");
+				String jsonString = jsonData.toString();
+				response = new JsonPath(jsonString);
 
+			}
+			else if (contentType.contains("application/json")) {
+				response = responseObj.jsonPath();
+			}
+			else {
+				System.out.println("Response content type found: " + contentType
+						+ ", but RoostGPT currently only supports the following response content types: application/json,text/xml,application/xml");
+				continue;
+			}
 
-            }  
-    }
+			if (stringifiedStatusCode.equals("204")) {
+				System.out.println("Description: Operação realizada com sucesso");
+			}
+			if (stringifiedStatusCode.equals("400")) {
+				System.out.println("Description: BadRequest");
+			}
+			if (stringifiedStatusCode.equals("401")) {
+				System.out.println("Description: Unauthorized");
+			}
+			if (stringifiedStatusCode.equals("500")) {
+				System.out.println("Description: ServerError");
+			}
+			if (stringifiedStatusCode.equals("503")) {
+				System.out.println("Description: Unavailable");
+			}
+			if (stringifiedStatusCode.equals("504")) {
+				System.out.println("Description: Timeout");
+			}
+
+		}
+	}
+
 }
