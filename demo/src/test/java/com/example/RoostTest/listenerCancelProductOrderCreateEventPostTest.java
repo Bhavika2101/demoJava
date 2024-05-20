@@ -51,21 +51,13 @@ public class listenerCancelProductOrderCreateEventPostTest {
 	@Test
 	public void listenerCancelProductOrderCreateEventPost_Test() throws JSONException {
 		this.setUp();
-    String requestBody = "{\n" + //
-            "                \"notification\": {\n" + //
-            "                  \"order\": {\n" + //
-            "                    \"associatedDocument\": \"VTT001\",\n" + //
-            "                    \"id\": \"20230315000001\"\n" + //
-            "                  }\n" + //
-            "                }\n" + //
-            "              }";
 		Integer testNumber = 1;
 		for (Map<String, String> testData : envList) {
 			RestAssured.baseURI = (testData.get("BASE_URL") != null && !testData.get("BASE_URL").isEmpty())
 					? testData.get("BASE_URL") : testData.get("BASE_URL");
 
 			Response responseObj = given().contentType(ContentType.JSON)
-				.body(requestBody)
+				.body(testData.get("requestBody") != null ? testData.get("requestBody") : "")
 				.when()
 				.post("/listener/cancelProductOrderCreateEvent")
 				.then()
