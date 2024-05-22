@@ -1,0 +1,11 @@
+addressId^|^AdditionalCSVvaluInfo^|^RequestBody^|^statusCode
+1^|^{"with complements": {"value": 14393}, "without complements": {"value": 24498}}^|^{"name": "John", "age": 30, "city": "New York"}^|^200
+2^|^{"with complements": {"value": 15432}, "without complements": {"value": 23567}}^|^{"name": "Jane", "age": 25, "city": "Los Angeles"}^|^403
+3^|^{"with complements": {"value": 16521}, "without complements": {"value": 22636}}^|^{"name": "Bob", "age": 35, "city": "Chicago"}^|^404
+4^|^{"with complements": {"value": 17610}, "without complements": {"value": 21705}}^|^{"name": "Alice", "age": 40, "city": "San Francisco"}^|^429
+5^|^{"with complements": {"value": 18699}, "without complements": {"value": 20774}}^|^{"name": "Charlie", "age": 45, "city": "Seattle"}^|^500
+6^|^{"with complements": {"value": 19788}, "without complements": {"value": 19843}}^|^{"name": "Eve", "age": 50, "city": "Boston"}^|^503
+7^|^{"with complements": {"value": 20877}, "without complements": {"value": 18912}}^|^{"name": "Frank", "age": 55, "city": "Austin"}^|^504
+8^|^{"with complements": {"value": 21966}, "without complements": {"value": 17981}}^|^{"name": "Grace", "age": 60, "city": "Dallas"}^|^200
+9^|^{"with complements": {"value": 23055}, "without complements": {"value": 17050}}^|^{"name": "Heidi", "age": 65, "city": "San Diego"}^|^403
+10^|^{"with complements": {"value": 24144}, "without complements": {"value": 16119}}^|^{"name": "Ivan", "age": 70, "city": "Phoenix"}^|^404
