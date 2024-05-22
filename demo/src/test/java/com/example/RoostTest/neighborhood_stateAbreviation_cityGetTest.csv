@@ -1,0 +1,11 @@
+stateAbreviation^|^AdditionalCSVvaluInfo^|^city^|^RequestBody^|^statusCode
+CA^|^Nilópolis^|^Los Angeles^|^{"name":"John", "age":30, "city":"Los Angeles"}^|^200
+NY^|^Nilópolis^|^New York^|^{"name":"Jane", "age":25, "city":"New York"}^|^200
+TX^|^Nilópolis^|^Houston^|^{"name":"Dave", "age":45, "city":"Houston"}^|^404
+FL^|^Nilópolis^|^Miami^|^{"name":"Emma", "age":35, "city":"Miami"}^|^500
+GA^|^Nilópolis^|^Atlanta^|^{"name":"Oliver", "age":50, "city":"Atlanta"}^|^200
+WA^|^Nilópolis^|^Seattle^|^{"name":"Sophia", "age":40, "city":"Seattle"}^|^403
+AZ^|^Nilópolis^|^Phoenix^|^{"name":"Liam", "age":55, "city":"Phoenix"}^|^504
+PA^|^Nilópolis^|^Philadelphia^|^{"name":"Charlotte", "age":60, "city":"Philadelphia"}^|^200
+CO^|^Nilópolis^|^Denver^|^{"name":"Noah", "age":65, "city":"Denver"}^|^429
+IL^|^Nilópolis^|^Chicago^|^{"name":"Mia", "age":70, "city":"Chicago"}^|^503

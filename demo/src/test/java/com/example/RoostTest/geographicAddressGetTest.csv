@@ -1,0 +1,11 @@
+address^|^AdditionalCSVvaluInfo^|^number^|^RequestBody^|^statusCode
+123 Main St^|^71^|^1234567890^|^{"name": "John", "age": 30, "city": "New York"}^|^200
+456 Oak Rd^|^71^|^0987654321^|^{"name": "Jane", "age": 25, "city": "Los Angeles"}^|^403
+789 Pine Ln^|^71^|^5678901234^|^{"name": "Bob", "age": 35, "city": "Chicago"}^|^404
+321 Elm St^|^71^|^5432109876^|^{"name": "Alice", "age": 28, "city": "Boston"}^|^429
+654 Maple Ave^|^71^|^6789012345^|^{"name": "Charlie", "age": 32, "city": "San Francisco"}^|^500
+987 Birch Blvd^|^71^|^3456789012^|^{"name": "Dave", "age": 40, "city": "Seattle"}^|^503
+231 Cedar St^|^71^|^2345678901^|^{"name": "Eve", "age": 33, "city": "Austin"}^|^504
+852 Walnut Way^|^71^|^8901234567^|^{"name": "Fred", "age": 38, "city": "Denver"}^|^200
+579 Spruce Dr^|^71^|^4567890123^|^{"name": "Grace", "age": 27, "city": "Miami"}^|^400
+264 Cherry Ct^|^71^|^9012345678^|^{"name": "Hank", "age": 36, "city": "Atlanta"}^|^403

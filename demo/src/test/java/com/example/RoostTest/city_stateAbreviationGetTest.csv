@@ -1,0 +1,11 @@
+stateAbreviation^|^AdditionalCSVvaluInfo^|^RequestBody^|^statusCode
+CA^|^RJ^|^{"user":"JohnDoe","action":"login"}^|^200
+NY^|^RJ^|^{"user":"JaneDoe","action":"logout"}^|^200
+TX^|^RJ^|^{"user":"JimSmith","action":"updateProfile"}^|^200
+FL^|^RJ^|^{"user":"JillSmith","action":"deleteAccount"}^|^403
+WA^|^RJ^|^{"user":"JohnnyApple","action":"login"}^|^404
+OR^|^RJ^|^{"user":"JennyApple","action":"logout"}^|^429
+NV^|^RJ^|^{"user":"JackCheese","action":"updateProfile"}^|^500
+AZ^|^RJ^|^{"user":"JillCheese","action":"deleteAccount"}^|^503
+CO^|^RJ^|^{"user":"JerryCan","action":"login"}^|^504
+NM^|^RJ^|^{"user":"JennyCan","action":"logout"}^|^200

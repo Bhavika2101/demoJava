@@ -1,0 +1,11 @@
+latitude^|^AdditionalCSVvaluInfo^|^longitude^|^radius^|^RequestBody^|^statusCode
+37.7749^|^SomeInfo1^|^-122.4194^|^10^|^{"key1": "value1", "key2": "value2"}^|^200
+34.0522^|^SomeInfo2^|^-118.2437^|^15^|^{"key1": "value3", "key2": "value4"}^|^404
+40.7128^|^SomeInfo3^|^-74.0060^|^20^|^{"key1": "value5", "key2": "value6"}^|^503
+51.5074^|^SomeInfo4^|^-0.1278^|^25^|^{"key1": "value7", "key2": "value8"}^|^422
+48.8566^|^SomeInfo5^|^2.3522^|^30^|^{"key1": "value9", "key2": "value10"}^|^400
+41.9028^|^SomeInfo6^|^12.4964^|^35^|^{"key1": "value11", "key2": "value12"}^|^504
+35.6895^|^SomeInfo7^|^139.6917^|^40^|^{"key1": "value13", "key2": "value14"}^|^429
+39.9042^|^SomeInfo8^|^116.4074^|^45^|^{"key1": "value15", "key2": "value16"}^|^200
+28.6139^|^SomeInfo9^|^77.2090^|^50^|^{"key1": "value17", "key2": "value18"}^|^500
+55.7558^|^SomeInfo10^|^37.6176^|^5^|^{"key1": "value19", "key2": "value20"}^|^403
