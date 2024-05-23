@@ -1,0 +1,2 @@
+requestBody^|^date^|^customer^|^subscriberId^|^order^|^id^|^correlationOrder^|^associatedDocument^|^issue^|^type^|^code^|^description^|^lostEquipment^|^resource^|^AdditionalCSVvaluInfo^|^statusCode
+"{\"notification\":{\"order\":{\"associatedDocument\":\"VTT001\",\"id\":\"20230315000001\"}}}"^|^2022-09-14T07:30:00Z^|^Customer1^|^SUB123456789^|^Order1^|^ID00001^|^COR00001^|^DOC001^|^Issue1^|^Type1^|^-1^|^Description for notification 1^|^True^|^Resource1^|^Additional info for notification 1^|^
