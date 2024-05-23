@@ -1,0 +1,7 @@
+date,subscriberId,id,correlationOrder,associatedDocument,code,description,type,observation,updateDate,action,task,fieldActivity,reason,lostEquipment,gponAccess,device,item,statusCode,scenario
+"2021-06-09T18:20:53-03:00","SVTAL001","14393","10","VTT001","1","Successful installation","Instalacao","","2021-06-09T18:20:53-03:00","adicionar","Installation","FTTH","N/A","False","N/A","ONT","BL_200MB",204,"OperaÃ§Ã£o realizada com sucesso"
+"2022-01-01T00:00:00-00:00","1234567890","abcd123","xyz","doc123","-1","Invalid ID","Error","","2022-01-01T00:00:00-00:00","remove","Removal","FTTP","Invalid ID","True","N/A","ONT","BL_200MB",400,"BadRequest"
+"2022-01-01T00:00:00-00:00","0987654321","dcba321","zyx","doc321","-1","Unauthorized access","Error","","2022-01-01T00:00:00-00:00","update","Update","FTTH","Unauthorized access","False","N/A","ONT","BL_200MB",401,"Unauthorized"
+"2022-01-01T00:00:00-00:00","1122334455","wxyz789","lmn","doc789","-1","Server error","Error","","2022-01-01T00:00:00-00:00","add","Installation","FTTP","Server error","True","N/A","ONT","BL_200MB",500,"ServerError"
+"2022-01-01T00:00:00-00:00","5566778899","zyxw987","nml","doc987","-1","Service unavailable","Error","","2022-01-01T00:00:00-00:00","remove","Removal","FTTH","Service unavailable","False","N/A","ONT","BL_200MB",503,"Unavailable"
+"2022-01-01T00:00:00-00:00","9988776655","lkjh543","poi","doc543","-1","Request timeout","Error","","2022-01-01T00:00:00-00:00","add","Installation","FTTP","Request timeout","True","N/A","ONT","BL_200MB",504,"Timeout"
