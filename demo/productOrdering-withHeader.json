@@ -26,6 +26,24 @@
         ],
         "summary": "Request Opening Order",
         "operationId": "Request Opening Order",
+        "parameters": [
+          {
+            "name": "x-request-id",
+            "in": "header",
+            "required" : true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-service-host",
+            "in": "header",
+            "required" : true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -1109,7 +1127,7 @@
                       "control": {
                         "type": "E",
                         "code": "400",
-                        "message": "Não é permitido informar produtos para esse tipo de ordem"
+                        "message": "NÃ£o Ã© permitido informar produtos para esse tipo de ordem"
                       }
                     }
                   },
@@ -1118,7 +1136,7 @@
                       "control": {
                         "type": "E",
                         "code": "400",
-                        "message": "O campo Catalog ID está com velocidade superior a permitida"
+                        "message": "O campo Catalog ID estÃ¡ com velocidade superior a permitida"
                       }
                     }
                   },
@@ -1127,7 +1145,7 @@
                       "control": {
                         "type": "E",
                         "code": "400",
-                        "message": "Campo Catalog ID fora do padrão esperado"
+                        "message": "Campo Catalog ID fora do padrÃ£o esperado"
                       }
                     }
                   }
@@ -1173,7 +1191,7 @@
           {
             "name": "order.Id",
             "in": "path",
-            "description": "identificador unico da ordem do serviço a ser atualizada",
+            "description": "identificador unico da ordem do serviÃ§o a ser atualizada",
             "required": true,
             "style": "simple",
             "example": "20230315000001",
@@ -1202,7 +1220,7 @@
                       },
                       "issue": {
                         "code": "7029",
-                        "observation": "Resolução de pendência de agendamento",
+                        "observation": "ResoluÃ§Ã£o de pendÃªncia de agendamento",
                         "updateDate": "2021-12-09T15:20:00",
                         "action": "fechar"
                       }
@@ -1222,7 +1240,7 @@
                       },
                       "issue": {
                         "code": "7016",
-                        "observation": "Reagendamento por ausência",
+                        "observation": "Reagendamento por ausÃªncia",
                         "updateDate": "2021-12-09T15:20:00",
                         "action": "fechar"
                       }
@@ -1236,13 +1254,13 @@
                       "associatedDocument": "VTT001",
                       "issue": {
                         "code": "7100",
-                        "observation": "Resolução de pendência de contato de obra",
+                        "observation": "ResoluÃ§Ã£o de pendÃªncia de contato de obra",
                         "updateDate": "2021-12-09T15:20:00",
                         "action": "fechar"
                       },
                       "customer": {
                         "workContact": {
-                          "name": "síndico Vtal",
+                          "name": "sÃ­ndico Vtal",
                           "email": "sindicovtal@vtal.com",
                           "phone": 21999900000
                         }
@@ -1299,7 +1317,7 @@
           {
             "name": "order.Id",
             "in": "path",
-            "description": "identificador unico da ordem do serviço a ser cancelada",
+            "description": "identificador unico da ordem do serviÃ§o a ser cancelada",
             "required": true,
             "example": "20230315000001",
             "schema": {
@@ -1354,7 +1372,7 @@
                   "control": {
                     "type": "E",
                     "code": "423",
-                    "message": "Agendamento não pode ser alterado"
+                    "message": "Agendamento nÃ£o pode ser alterado"
                   }
                 }
               }
@@ -1484,7 +1502,7 @@
                         "associatedDocument": "VTT001",
                         "type": "Encerramento",
                         "code": "-1",
-                        "description": "O Equipamento já está em uso por outro cliente",
+                        "description": "O Equipamento jÃ¡ estÃ¡ em uso por outro cliente",
                         "lostEquipment": "True",
                         "resource": {
                           "fiberPath": {
@@ -1594,7 +1612,7 @@
         },
         "responses": {
           "204": {
-            "description": "Operação realizada com sucesso"
+            "description": "OperaÃ§Ã£o realizada com sucesso"
           },
           "400": {
             "description": "BadRequest"
@@ -1642,7 +1660,7 @@
         },
         "responses": {
           "204": {
-            "description": "Operação realizada com sucesso"
+            "description": "OperaÃ§Ã£o realizada com sucesso"
           },
           "400": {
             "description": "BadRequest"
@@ -1715,7 +1733,7 @@
                           "action": "abrir",
                           "task": "",
                           "fieldActivity": "false",
-                          "reason": "MANUNTENÇÃO"
+                          "reason": "MANUNTENÃ‡ÃƒO"
                         }
                       }
                     }
@@ -1773,7 +1791,7 @@
         },
         "responses": {
           "204": {
-            "description": "Operação realizada com sucesso"
+            "description": "OperaÃ§Ã£o realizada com sucesso"
           },
           "400": {
             "description": "BadRequest"
@@ -1795,13 +1813,20 @@
     }
   },
   "components": {
+    "securitySchemes" :{
+      "usernameHeader": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-Username"
+      }
+    },
     "schemas": {
       "control": {
         "type": "object",
         "properties": {
           "type": {
             "type": "string",
-            "description": "Tipo da mensagem de retorno. (S - Sucesso, T - Erro Técnico, E - Erro)",
+            "description": "Tipo da mensagem de retorno. (S - Sucesso, T - Erro TÃ©cnico, E - Erro)",
             "enum": [
               "S",
               "T",
@@ -1811,12 +1836,12 @@
           },
           "message": {
             "type": "string",
-            "description": "Descrição da mensagem de retorno.",
+            "description": "DescriÃ§Ã£o da mensagem de retorno.",
             "maxLength": 250
           },
           "code": {
             "type": "string",
-            "description": "Código de Retorno.",
+            "description": "CÃ³digo de Retorno.",
             "maxLength": 3
           }
         }
@@ -1840,7 +1865,7 @@
             "properties": {
               "id": {
                 "type": "string",
-                "description": "Identificador único da ordem criada",
+                "description": "Identificador Ãºnico da ordem criada",
                 "maxLength": 25
               }
             }
@@ -1862,12 +1887,12 @@
             "properties": {
               "correlationOrder": {
                 "type": "string",
-                "description": "Número identificador da ordem informado pelo cliente",
+                "description": "NÃºmero identificador da ordem informado pelo cliente",
                 "maxLength": 255
               },
               "associatedDocument": {
                 "type": "string",
-                "description": "Número do documento associado à ordem informado pelo cliente. Os únicos caracteres especiais permitidos são o underline e o hífen.",
+                "description": "NÃºmero do documento associado Ã  ordem informado pelo cliente. Os Ãºnicos caracteres especiais permitidos sÃ£o o underline e o hÃ­fen.",
                 "maxLength": 30
               },
               "associatedDocumentDate": {
@@ -1887,7 +1912,7 @@
                   "Modificacao de Velocidade",
                   "RemanejamentoPonto"
                 ],
-                "description": "Tipo da Ordem de Serviço que será enviada.",
+                "description": "Tipo da Ordem de ServiÃ§o que serÃ¡ enviada.",
                 "maxLength": 50
               },
               "infraType": {
@@ -1956,18 +1981,18 @@
                   },
                   "description": {
                     "type": "string",
-                    "description": "Descrição da pendência",
+                    "description": "DescriÃ§Ã£o da pendÃªncia",
                     "maxLength": 100
                   },
                   "updateDate": {
                     "type": "string",
                     "format": "date-time",
-                    "description": "Data de atualização da pendência",
+                    "description": "Data de atualizaÃ§Ã£o da pendÃªncia",
                     "maxLength": 25
                   },
                   "action": {
                     "type": "string",
-                    "description": "Ação da pendência",
+                    "description": "AÃ§Ã£o da pendÃªncia",
                     "maxLength": 255
                   }
                 }
@@ -1983,7 +2008,7 @@
             "properties": {
               "associatedDocument": {
                 "type": "string",
-                "description": "Número do documento associado à ordem informado pelo cliente. Os únicos caracteres especiais permitidos são o underline e o hífen.",
+                "description": "NÃºmero do documento associado Ã  ordem informado pelo cliente. Os Ãºnicos caracteres especiais permitidos sÃ£o o underline e o hÃ­fen.",
                 "maxLength": 30
               },
               "customer": {
@@ -1991,7 +2016,7 @@
                 "properties": {
                   "subscriberId": {
                     "type": "string",
-                    "description": "Número identificador do cliente. Os únicos caracteres especiais permitidos são o underline e o hífen.",
+                    "description": "NÃºmero identificador do cliente. Os Ãºnicos caracteres especiais permitidos sÃ£o o underline e o hÃ­fen.",
                     "maxLength": 30
                   }
                 }
@@ -2020,12 +2045,12 @@
             "properties": {
               "correlationOrder": {
                 "type": "string",
-                "description": "Número identificador da ordem informado pelo cliente",
+                "description": "NÃºmero identificador da ordem informado pelo cliente",
                 "maxLength": 255
               },
               "associatedDocument": {
                 "type": "string",
-                "description": "Número do documento associado à ordem informado pelo cliente. Os únicos caracteres especiais permitidos são o underline e o hífen.",
+                "description": "NÃºmero do documento associado Ã  ordem informado pelo cliente. Os Ãºnicos caracteres especiais permitidos sÃ£o o underline e o hÃ­fen.",
                 "maxLength": 30
               },
               "associatedDocumentDate": {
@@ -2045,7 +2070,7 @@
                   "Modificacao de Velocidade",
                   "RemanejamentoPonto"
                 ],
-                "description": "Tipo da Ordem de Serviço que será enviada.",
+                "description": "Tipo da Ordem de ServiÃ§o que serÃ¡ enviada.",
                 "maxLength": 50
               },
               "infraType": {
@@ -2063,7 +2088,7 @@
                   "flag": {
                     "type": "boolean",
                     "default": false,
-                    "description": "Flag indicadora de mudança de endereço em um pedido de Instalação e/ou Retirada, ou seja, ordem serviço de instalação ou retirada, oriundo de uma mudança de endereço. Preenchimento permitido apenas para ordens do tipo Instalação e Retirada (type=Instalacao ou type=Retirada). IMPORTANTE: Se addressChange/flag=true, obrigatoriamente será necessário informar o identificador antido da instalação do cliente, parametro 'order/customer/subscriberIdOld'"
+                    "description": "Flag indicadora de mudanÃ§a de endereÃ§o em um pedido de InstalaÃ§Ã£o e/ou Retirada, ou seja, ordem serviÃ§o de instalaÃ§Ã£o ou retirada, oriundo de uma mudanÃ§a de endereÃ§o. Preenchimento permitido apenas para ordens do tipo InstalaÃ§Ã£o e Retirada (type=Instalacao ou type=Retirada). IMPORTANTE: Se addressChange/flag=true, obrigatoriamente serÃ¡ necessÃ¡rio informar o identificador antido da instalaÃ§Ã£o do cliente, parametro 'order/customer/subscriberIdOld'"
                   }
                 }
               },
@@ -2124,18 +2149,18 @@
                   },
                   "description": {
                     "type": "string",
-                    "description": "Descrição da pendência",
+                    "description": "DescriÃ§Ã£o da pendÃªncia",
                     "maxLength": 100
                   },
                   "updateDate": {
                     "type": "string",
                     "format": "date-time",
-                    "description": "Data de atualização da pendência",
+                    "description": "Data de atualizaÃ§Ã£o da pendÃªncia",
                     "maxLength": 25
                   },
                   "action": {
                     "type": "string",
-                    "description": "Ação da pendência",
+                    "description": "AÃ§Ã£o da pendÃªncia",
                     "maxLength": 255
                   }
                 }
@@ -2161,12 +2186,12 @@
               },
               "subscriberId": {
                 "type": "string",
-                "description": "Número identificador da instalação do cliente. Os únicos caracteres especiais permitidos são o underline e o hífen.",
+                "description": "NÃºmero identificador da instalaÃ§Ã£o do cliente. Os Ãºnicos caracteres especiais permitidos sÃ£o o underline e o hÃ­fen.",
                 "maxLength": 30
               },
               "subscriberIdOld": {
                 "type": "string",
-                "description": "Número identificador ANTIGO da instalação do cliente. Os únicos caracteres especiais permitidos são o underline e o hífen. IMPORTANTE: Parametro de preenchimento obrigatório para ordens de instalação, oriundo de uma mudança de endereço (addressChange/Flag=true)",
+                "description": "NÃºmero identificador ANTIGO da instalaÃ§Ã£o do cliente. Os Ãºnicos caracteres especiais permitidos sÃ£o o underline e o hÃ­fen. IMPORTANTE: Parametro de preenchimento obrigatÃ³rio para ordens de instalaÃ§Ã£o, oriundo de uma mudanÃ§a de endereÃ§o (addressChange/Flag=true)",
                 "maxLength": 30
               },
               "businessUnity": {
@@ -2175,7 +2200,7 @@
                   "varejo",
                   "empresarial"
                 ],
-                "description": "Unidade de negócio",
+                "description": "Unidade de negÃ³cio",
                 "maxLength": 15
               },
               "fantasyName": {
@@ -2232,7 +2257,7 @@
             "properties": {
               "hasSlot": {
                 "type": "boolean",
-                "description": "Indica se há ou não um agendamento realizado"
+                "description": "Indica se hÃ¡ ou nÃ£o um agendamento realizado"
               },
               "date": {
                 "type": "string",
@@ -2251,7 +2276,7 @@
               },
               "workOrderId": {
                 "type": "string",
-                "description": "Número da ordem de agendamento",
+                "description": "NÃºmero da ordem de agendamento",
                 "maxLength": 15
               }
             }
@@ -2272,17 +2297,17 @@
                 "properties": {
                   "id": {
                     "type": "number",
-                    "description": "Identificador único do endereço",
+                    "description": "Identificador Ãºnico do endereÃ§o",
                     "maxLength": 255
                   },
                   "inventoryId": {
                     "type": "string",
-                    "description": "Identificador do inventário de recursos.",
+                    "description": "Identificador do inventÃ¡rio de recursos.",
                     "maxLength": 255
                   },
                   "reference": {
                     "type": "string",
-                    "description": "Ponto de referência",
+                    "description": "Ponto de referÃªncia",
                     "maxLength": 255
                   },
                   "complement": {
@@ -2321,7 +2346,7 @@
                         "BL_900MB",
                         "BL_1000MB"
                       ],
-                      "description": "Identificador do produto no catálogo",
+                      "description": "Identificador do produto no catÃ¡logo",
                       "maxLength": 30
                     },
                     "action": {
@@ -2335,7 +2360,7 @@
                         "desbloquear total",
                         "modificar"
                       ],
-                      "description": "Ação a ser executada para o produto",
+                      "description": "AÃ§Ã£o a ser executada para o produto",
                       "maxLength": 25
                     }
                   }
@@ -2369,12 +2394,12 @@
                     },
                     "code": {
                       "type": "number",
-                      "description": "Código de identificação do tipo de material",
+                      "description": "CÃ³digo de identificaÃ§Ã£o do tipo de material",
                       "maxLength": 50
                     },
                     "action": {
                       "type": "string",
-                      "description": "Ação a ser realizada",
+                      "description": "AÃ§Ã£o a ser realizada",
                       "maxLength": 30,
                       "enum": [
                         "adicionar"
@@ -2400,7 +2425,7 @@
               },
               "type": {
                 "type": "string",
-                "description": "Tipo de pendência",
+                "description": "Tipo de pendÃªncia",
                 "maxLength": 10,
                 "enum": [
                   "CLIENTE",
@@ -2409,18 +2434,18 @@
               },
               "observation": {
                 "type": "string",
-                "description": "Observação da pendência",
+                "description": "ObservaÃ§Ã£o da pendÃªncia",
                 "maxLength": 255
               },
               "updateDate": {
                 "type": "string",
                 "format": "date-time",
-                "description": "Data de atualização da pendência",
+                "description": "Data de atualizaÃ§Ã£o da pendÃªncia",
                 "maxLength": 25
               },
               "action": {
                 "type": "string",
-                "description": "Ação da pendência",
+                "description": "AÃ§Ã£o da pendÃªncia",
                 "enum": [
                   "abrir",
                   "fechar",
@@ -2430,7 +2455,7 @@
               },
               "task": {
                 "type": "string",
-                "description": "Tarefa onde a OS está em caso de pendência",
+                "description": "Tarefa onde a OS estÃ¡ em caso de pendÃªncia",
                 "maxLength": 255
               },
               "fieldActivity": {
@@ -2444,7 +2469,7 @@
               },
               "reason": {
                 "type": "string",
-                "description": "Motivo da pendência de uma OS",
+                "description": "Motivo da pendÃªncia de uma OS",
                 "maxLength": 1000
               }
             }
@@ -2455,11 +2480,11 @@
         "properties": {
           "code": {
             "type": "string",
-            "description": "Código da pendência<br> 7001 - Pendência Cancelamento por Duplicidade<br> 7002 - Pendência Agendamento Futuro Obra 7 dias<br> 7004 - Pendência Agendamento Futuro Obra 7 dias<br> 7006 - Pendência de Aprovisionamento 5 dias<br> 7007 - Pendência de Aprovisionamento 5 dias<br> 7008 - Pendência Cancelamento por Inviabilidade Técnica<br> 7009 - Pendência Cancelamento e Reemissão<br> 7010 - Pendência Equipamento Cliente<br> 7013 - Pendência Cancelamento por Inviabilidade Técnica<br> 7014 - Pendência Rede Interna Cliente<br> 7015 - Pendência Cancelamento por Desistência do Serviço<br> 7016 - Pendência Cliente Ausente<br> 7017 - Pendência Cliente Solicita nova data de Agendamento<br> 7018 - Pendência de Rede 3 dias<br> 7020 - Pendência de Rede 3 dias<br> 7021 - Pendência Cliente Interrompe e Solicita nova data de Agendamento<br> 7022 - Pendência de Rede 3 dias<br> 7024 - Pendência de Rede 3 dias<br> 7029 - Pendência Agendamento<br> 7030 - Pendência de Rede 3 dias<br> 7031 - Pendência Agendamento<br> 7035 - Pendência área de Risco Momentânea<br> 7036 - Pendência Área de Risco Indeterminada 15 dias<br> 7037 - Pendência Impedimento de Atividade por Chuva<br> 7038 - Pendência de Rede 3 dias<br> 7041 - Pendência de Rede 3 dias<br> 7042 - Pendência Local Fechado<br> 7043 - Pendência de Rede 3 dias<br> 7047 - Pendência Acesso Impossibilitado<br> 7048 - Pendência de Rede 3 dias<br> 7049 - Pendência Endereço Não Localizado<br> 7051 - Pendência de Aprovisionamento 5 dias<br> 7052 - Pendência de Aprovisionamento 5 dias<br> 7053 - Pendência de Aprovisionamento 5 dias<br> 7054 - Pendência de Aprovisionamento 5 dias<br> 7059 - Pendência de Aprovisionamento 5 dias<br> 7061 - Pendência de Aprovisionamento 5 dias<br> 7062 - Pendência de Aprovisionamento 5 dias<br> 7065 - Pendência Local Fechado<br> 7066 - Pendência Cliente Não Solicitou Instalação<br> 7067 - Pendência Cancelamento por Área de Risco<br> 7069 - Pendência de Rede 3 dias<br> 7070 - Pendência de Rede 3 dias<br> 7071 - Pendência Área de Risco Indeterminada 15 dias<br> 7074 - Pendência de Rede 3 dias<br> 7075 - Pendência Cancelamento por Inviabilidade Técnica<br> 7076 - Pendência Cancelamento e Reemissão<br> 7077 - Pendência Rede Interna Cliente<br> 7078 - Pendência Cancelamento por Desistência do Serviço<br> 7079 - Pendência Acesso Impossibilitado<br> 7080 - Pendência Área de Risco Momentânea<br> 7081 - Pendência Cancelamento por Impossibilidade de Execução<br> 7082 - Pendência Endereço Não Localizado<br> 7083 - Pendência Cliente Não Solicitou Instalação<br> 7086 - Pendência de Rede 3 dias<br> 7087 - Pendência de Rede 3 dias<br> 7088 - Pendência de Rede 3 dias<br> 7089 - Pendência Sem Contato Obra<br> 7090 - Pendência de Rede 3 dias<br> 7092 - Pendência Cancelamento por Duplicidade<br> 7095 - Pendência agendamento não cumprido<br> 7096 - Pendência Segurança do Trabalho 15 dias<br> 7099 - Pendência Endereço correto Inviável<br> 7100 - Pendência Sem Contato Obra<br> 7106 - Pendência de Rede 3 dias<br> 7107 - Pendência de Rede 3 dias<br> 7108 - Pendência Impedimento de Atividade por Chuva",
+            "description": "CÃ³digo da pendÃªncia<br> 7001 - PendÃªncia Cancelamento por Duplicidade<br> 7002 - PendÃªncia Agendamento Futuro Obra 7 dias<br> 7004 - PendÃªncia Agendamento Futuro Obra 7 dias<br> 7006 - PendÃªncia de Aprovisionamento 5 dias<br> 7007 - PendÃªncia de Aprovisionamento 5 dias<br> 7008 - PendÃªncia Cancelamento por Inviabilidade TÃ©cnica<br> 7009 - PendÃªncia Cancelamento e ReemissÃ£o<br> 7010 - PendÃªncia Equipamento Cliente<br> 7013 - PendÃªncia Cancelamento por Inviabilidade TÃ©cnica<br> 7014 - PendÃªncia Rede Interna Cliente<br> 7015 - PendÃªncia Cancelamento por DesistÃªncia do ServiÃ§o<br> 7016 - PendÃªncia Cliente Ausente<br> 7017 - PendÃªncia Cliente Solicita nova data de Agendamento<br> 7018 - PendÃªncia de Rede 3 dias<br> 7020 - PendÃªncia de Rede 3 dias<br> 7021 - PendÃªncia Cliente Interrompe e Solicita nova data de Agendamento<br> 7022 - PendÃªncia de Rede 3 dias<br> 7024 - PendÃªncia de Rede 3 dias<br> 7029 - PendÃªncia Agendamento<br> 7030 - PendÃªncia de Rede 3 dias<br> 7031 - PendÃªncia Agendamento<br> 7035 - PendÃªncia Ã¡rea de Risco MomentÃ¢nea<br> 7036 - PendÃªncia Ãrea de Risco Indeterminada 15 dias<br> 7037 - PendÃªncia Impedimento de Atividade por Chuva<br> 7038 - PendÃªncia de Rede 3 dias<br> 7041 - PendÃªncia de Rede 3 dias<br> 7042 - PendÃªncia Local Fechado<br> 7043 - PendÃªncia de Rede 3 dias<br> 7047 - PendÃªncia Acesso Impossibilitado<br> 7048 - PendÃªncia de Rede 3 dias<br> 7049 - PendÃªncia EndereÃ§o NÃ£o Localizado<br> 7051 - PendÃªncia de Aprovisionamento 5 dias<br> 7052 - PendÃªncia de Aprovisionamento 5 dias<br> 7053 - PendÃªncia de Aprovisionamento 5 dias<br> 7054 - PendÃªncia de Aprovisionamento 5 dias<br> 7059 - PendÃªncia de Aprovisionamento 5 dias<br> 7061 - PendÃªncia de Aprovisionamento 5 dias<br> 7062 - PendÃªncia de Aprovisionamento 5 dias<br> 7065 - PendÃªncia Local Fechado<br> 7066 - PendÃªncia Cliente NÃ£o Solicitou InstalaÃ§Ã£o<br> 7067 - PendÃªncia Cancelamento por Ãrea de Risco<br> 7069 - PendÃªncia de Rede 3 dias<br> 7070 - PendÃªncia de Rede 3 dias<br> 7071 - PendÃªncia Ãrea de Risco Indeterminada 15 dias<br> 7074 - PendÃªncia de Rede 3 dias<br> 7075 - PendÃªncia Cancelamento por Inviabilidade TÃ©cnica<br> 7076 - PendÃªncia Cancelamento e ReemissÃ£o<br> 7077 - PendÃªncia Rede Interna Cliente<br> 7078 - PendÃªncia Cancelamento por DesistÃªncia do ServiÃ§o<br> 7079 - PendÃªncia Acesso Impossibilitado<br> 7080 - PendÃªncia Ãrea de Risco MomentÃ¢nea<br> 7081 - PendÃªncia Cancelamento por Impossibilidade de ExecuÃ§Ã£o<br> 7082 - PendÃªncia EndereÃ§o NÃ£o Localizado<br> 7083 - PendÃªncia Cliente NÃ£o Solicitou InstalaÃ§Ã£o<br> 7086 - PendÃªncia de Rede 3 dias<br> 7087 - PendÃªncia de Rede 3 dias<br> 7088 - PendÃªncia de Rede 3 dias<br> 7089 - PendÃªncia Sem Contato Obra<br> 7090 - PendÃªncia de Rede 3 dias<br> 7092 - PendÃªncia Cancelamento por Duplicidade<br> 7095 - PendÃªncia agendamento nÃ£o cumprido<br> 7096 - PendÃªncia SeguranÃ§a do Trabalho 15 dias<br> 7099 - PendÃªncia EndereÃ§o correto InviÃ¡vel<br> 7100 - PendÃªncia Sem Contato Obra<br> 7106 - PendÃªncia de Rede 3 dias<br> 7107 - PendÃªncia de Rede 3 dias<br> 7108 - PendÃªncia Impedimento de Atividade por Chuva",
             "maxLength": 5,
             "enum": [
               {
-                "comment": "Pendência cliente"
+                "comment": "PendÃªncia cliente"
               },
               7001,
               7008,
@@ -2536,35 +2561,35 @@
         "properties": {
           "description": {
             "type": "string",
-            "description": "Descrição da pendência",
+            "description": "DescriÃ§Ã£o da pendÃªncia",
             "maxLength": 100,
             "enum": [
-              "Pendência Cancelamento por Duplicidade",
-              "Pendência Agendamento Futuro Obra 7 dias",
-              "Pendência de Aprovisionamento 5 dias",
-              "Pendência Cancelamento por Inviabilidade Técnica",
-              "Pendência Cancelamento e Reemissão",
-              "Pendência Equipamento Cliente",
-              "Pendência Rede Interna Cliente",
-              "Pendência Cancelamento por Desistência do Serviço",
-              "Pendência Cliente Ausente",
-              "Pendência Cliente Solicita nova data de Agendamento",
-              "Pendência de Rede 3 dias",
-              "Pendência Cliente Interrompe e Solicita nova data de Agendamento",
-              "Pendência Agendamento",
-              "Pendência área de Risco Momentânea",
-              "Pendência Área de Risco Indeterminada 15 dias",
-              "Pendência Impedimento de Atividade por Chuva",
-              "Pendência Local Fechado",
-              "Pendência Acesso Impossibilitado",
-              "Pendência Endereço Não Localizado",
-              "Pendência Cliente Não Solicitou Instalação",
-              "Pendência Cancelamento por Área de Risco",
-              "Pendência Cancelamento por Impossibilidade de Execução",
-              "Pendência Sem Contato Obra",
-              "Pendência agendamento não cumprido",
-              "Pendência Segurança do Trabalho 15 dias",
-              "Pendência Endereço correto Inviável"
+              "PendÃªncia Cancelamento por Duplicidade",
+              "PendÃªncia Agendamento Futuro Obra 7 dias",
+              "PendÃªncia de Aprovisionamento 5 dias",
+              "PendÃªncia Cancelamento por Inviabilidade TÃ©cnica",
+              "PendÃªncia Cancelamento e ReemissÃ£o",
+              "PendÃªncia Equipamento Cliente",
+              "PendÃªncia Rede Interna Cliente",
+              "PendÃªncia Cancelamento por DesistÃªncia do ServiÃ§o",
+              "PendÃªncia Cliente Ausente",
+              "PendÃªncia Cliente Solicita nova data de Agendamento",
+              "PendÃªncia de Rede 3 dias",
+              "PendÃªncia Cliente Interrompe e Solicita nova data de Agendamento",
+              "PendÃªncia Agendamento",
+              "PendÃªncia Ã¡rea de Risco MomentÃ¢nea",
+              "PendÃªncia Ãrea de Risco Indeterminada 15 dias",
+              "PendÃªncia Impedimento de Atividade por Chuva",
+              "PendÃªncia Local Fechado",
+              "PendÃªncia Acesso Impossibilitado",
+              "PendÃªncia EndereÃ§o NÃ£o Localizado",
+              "PendÃªncia Cliente NÃ£o Solicitou InstalaÃ§Ã£o",
+              "PendÃªncia Cancelamento por Ãrea de Risco",
+              "PendÃªncia Cancelamento por Impossibilidade de ExecuÃ§Ã£o",
+              "PendÃªncia Sem Contato Obra",
+              "PendÃªncia agendamento nÃ£o cumprido",
+              "PendÃªncia SeguranÃ§a do Trabalho 15 dias",
+              "PendÃªncia EndereÃ§o correto InviÃ¡vel"
             ]
           }
         }
@@ -2600,12 +2625,12 @@
                         "description": {
                           "type": "string",
                           "maxLength": 255,
-                          "description": "Descrição do recurso"
+                          "description": "DescriÃ§Ã£o do recurso"
                         },
                         "state": {
                           "type": "string",
                           "maxLength": 15,
-                          "description": "Status da ativação"
+                          "description": "Status da ativaÃ§Ã£o"
                         },
                         "usageState": {
                           "type": "string",
@@ -2624,7 +2649,7 @@
                             "properties": {
                               "name": {
                                 "type": "string",
-                                "description": "Descrição do item",
+                                "description": "DescriÃ§Ã£o do item",
                                 "maxLength": 100
                               },
                               "value": {
@@ -2653,7 +2678,7 @@
                           "properties": {
                             "name": {
                               "type": "string",
-                              "description": "Descrição do item",
+                              "description": "DescriÃ§Ã£o do item",
                               "maxLength": 100
                             },
                             "value": {
@@ -2680,7 +2705,7 @@
               "date": {
                 "type": "string",
                 "format": "date-time",
-                "description": "Data da Notificação",
+                "description": "Data da NotificaÃ§Ã£o",
                 "maxLength": 25
               },
               "customer": {
@@ -2688,7 +2713,7 @@
                 "properties": {
                   "subscriberId": {
                     "type": "string",
-                    "description": "Número identificador do cliente",
+                    "description": "NÃºmero identificador do cliente",
                     "maxLength": 30
                   }
                 }
@@ -2703,12 +2728,12 @@
                   },
                   "correlationOrder": {
                     "type": "string",
-                    "description": "Número identificador da ordem informado pelo cliente",
+                    "description": "NÃºmero identificador da ordem informado pelo cliente",
                     "maxLength": 255
                   },
                   "associatedDocument": {
                     "type": "string",
-                    "description": "Número do documento associado à ordem informado pelo cliente. Os caracteres especiais permitidos são o underline e o hífen.",
+                    "description": "NÃºmero do documento associado Ã  ordem informado pelo cliente. Os caracteres especiais permitidos sÃ£o o underline e o hÃ­fen.",
                     "maxLength": 30
                   },
                   "issue": {
@@ -2721,7 +2746,7 @@
                   },
                   "code": {
                     "type": "string",
-                    "description": "Código da notificação enviada.",
+                    "description": "CÃ³digo da notificaÃ§Ã£o enviada.",
                     "enum": [
                       "-1",
                       "0",
@@ -2733,12 +2758,12 @@
                   },
                   "description": {
                     "type": "string",
-                    "description": "Descrição do Código enviado na Notificação<br> -1 - O Equipamento já está em uso por outro cliente<br> 0 - Ordem encerrada com sucesso<br> 1  - Enviando Atualização de Ordem<br> 2  - Ordem cancelada<br> 3  - Início do Processo de Obra<br> 4  - Término do Processo de Obra",
+                    "description": "DescriÃ§Ã£o do CÃ³digo enviado na NotificaÃ§Ã£o<br> -1 - O Equipamento jÃ¡ estÃ¡ em uso por outro cliente<br> 0 - Ordem encerrada com sucesso<br> 1  - Enviando AtualizaÃ§Ã£o de Ordem<br> 2  - Ordem cancelada<br> 3  - InÃ­cio do Processo de Obra<br> 4  - TÃ©rmino do Processo de Obra",
                     "maxLength": 50
                   },
                   "lostEquipment": {
                     "type": "string",
-                    "description": "Informa o extravio do equipamento verificado durante a visita técnica. Retorna apenas em notificações referentes a ordem do tipo FTTH.",
+                    "description": "Informa o extravio do equipamento verificado durante a visita tÃ©cnica. Retorna apenas em notificaÃ§Ãµes referentes a ordem do tipo FTTH.",
                     "enum": [
                       "True",
                       "False"
@@ -2770,7 +2795,7 @@
                     },
                     "value": {
                       "type": "string",
-                      "description": "Descrição do complemento",
+                      "description": "DescriÃ§Ã£o do complemento",
                       "maxLength": 30
                     }
                   }
@@ -2859,7 +2884,7 @@
                   "control": {
                     "type": "E",
                     "code": "403",
-                    "message": "Aplicação não autorizada ou não informada!"
+                    "message": "AplicaÃ§Ã£o nÃ£o autorizada ou nÃ£o informada!"
                   }
                 }
               }
@@ -2897,7 +2922,7 @@
                   "control": {
                     "type": "E",
                     "code": "406",
-                    "message": "Not Acceptable (AssociatedDocument já existente/utilizado)"
+                    "message": "Not Acceptable (AssociatedDocument jÃ¡ existente/utilizado)"
                   }
                 }
               },
@@ -2906,7 +2931,7 @@
                   "control": {
                     "type": "E",
                     "code": "406",
-                    "message": "Not Acceptable (Identificador da instalação [subscriberId] inativo ou inexistente)"
+                    "message": "Not Acceptable (Identificador da instalaÃ§Ã£o [subscriberId] inativo ou inexistente)"
                   }
                 }
               },
@@ -2915,7 +2940,7 @@
                   "control": {
                     "type": "E",
                     "code": "406",
-                    "message": "Not Acceptable (Identificador da instalação [subscriberId] já existente/instalado))"
+                    "message": "Not Acceptable (Identificador da instalaÃ§Ã£o [subscriberId] jÃ¡ existente/instalado))"
                   }
                 }
               },
@@ -2924,7 +2949,7 @@
                   "control": {
                     "type": "E",
                     "code": "406",
-                    "message": "Not Acceptable (Identificador da instalação [subscriberId] em aprovisionamento)"
+                    "message": "Not Acceptable (Identificador da instalaÃ§Ã£o [subscriberId] em aprovisionamento)"
                   }
                 }
               },
@@ -2933,7 +2958,7 @@
                   "control": {
                     "type": "E",
                     "code": "406",
-                    "message": "Not Acceptable (Tipo de infraestrutura [infraType] informado diferente do contratado/permitido para o endereço informado)"
+                    "message": "Not Acceptable (Tipo de infraestrutura [infraType] informado diferente do contratado/permitido para o endereÃ§o informado)"
                   }
                 }
               }
@@ -3010,5 +3035,10 @@
         }
       }
     }
-  }
+  },
+  "security":[
+    {
+      "usernameHeader": []
+    }
+  ]
 }
