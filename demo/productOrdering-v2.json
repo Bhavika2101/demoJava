@@ -26,6 +26,17 @@
         ],
         "summary": "Request Opening Order",
         "operationId": "Request Opening Order",
+        "parameters": [
+          {
+            "name": "X-Request-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Unique request identifier"
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
